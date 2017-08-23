@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <h1>Welcome Admin. Now you can create user Role.</h1>
+    <h3>
+        @(Html.ActionLink("Manage Role", "Index", "Role", new { id = 1 }, new { @class = "btn btn-primary btn-md" }))
+        @(Html.ActionLink("Manage Upload", "ManageUpload", new { id = 1 }, new { @class = "btn btn-info btn-md" }))
+    </h3>
+
+    <table class="table table-bordered table-striped table-hover table-responsive" style="margin-top:20px;">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Lockout</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in ViewBag.Admin)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.PasswordHash</td>
+                    <td>
+                        @if (item.LockoutEnabled == false)
+                        {
+                            @*@(Html.ActionLink("Disable", "Status", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }))*@
+                            if (item.UserName == "tresna")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                @(Html.ActionLink("Disable", "Status", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" }))
+                            }
+                        }
+                        else
+                        {
+                            @(Html.ActionLink("Enable", "Status", new { id = item.Id }, new { @class = "btn btn-success btn-sm" }))
+                        }
+                    </td>
+                    <td>
+                        @(Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }))
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2> Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+}
+

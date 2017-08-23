@@ -1,0 +1,50 @@
+﻿@model MvcUseRole.Models.FileUpload
+@{
+    ViewBag.Title = "Manage Upload";
+}
+
+<h2>Manage</h2>
+<h3>@(Html.ActionLink("Back", "Index", new { id = 1 }, new { @class = "btn btn-primary btn-md" }))</h3>
+<table class="table table-striped table-condensed table-responsive" style="margin-top:20px;">
+    <thead>
+        <tr><th colspan="7" class="alert-info"><center>Data Image</center></th></tr>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>FileName</th>
+            <th>FilePath</th>
+            <th>Download</th>
+            <th>Action</th>
+            <th>Approvement</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.look)
+            {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.UserId</td>
+                <td>@item.FileName</td>
+                <td><img src="@Url.Content(item.FilePath)" alt="Image" height="50" width="50"></td>
+                <td>@(Html.ActionLink("Download File", "Download", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" }))</td>
+                <td>
+                    @*@(Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-info btn-sm" }))*@
+                    @(Html.ActionLink("Delete", "DeleteUpload", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" }))
+                </td>
+                <td>
+                    @if (item.Approve == false)
+                    {
+                        @(Html.ActionLink("Disagree", "Approve", new { id = item.ID }, new { @class = "btn btn-warning btn-sm" }))
+                    }
+                    else
+                    {
+                        @(Html.ActionLink("Agree", "Approve", new { id = item.ID }, new { @class = "btn btn-success btn-sm" }))
+                    }
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Delete Upload";
+}
+
+@foreach (var item in ViewBag.deleteU)
+{
+    <h2>Delete</h2>
+    <h3>Are You Sure Want To Delete This Data?</h3>
+    <p>User ID      : @item.UserId</p>
+    <p>File Name    : @item.FileName</p>
+    <p>File Path    : @item.FilePath</p>
+
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@item.ID" />
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger btn-md" />
+            @(Html.ActionLink("Back Manage", "Index", new { id = 1 }, new { @class = "btn btn-primary btn-md" }))
+        </div>
+    }
+}
+
+
